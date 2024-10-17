@@ -7,12 +7,11 @@ import com.mycompany.model.User;
 
 @Service
 public class UserService {
-    
+
     @Autowired
     private UserDAO userDAO;
 
     public boolean authenticate(String username, String password) {
-        User user = userDAO.findByUsername(username);
-        return user != null && user.getPassword().equals(password);
+        return userDAO.validateUser(username, password);
     }
 }

@@ -9,34 +9,24 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 
 
 @Repository
 public class UserDAO {
 
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    public UserDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UserDAO(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public User findByUsername(String username) {
-        String sql = "SELECT * FROM users WHERE username = ?";
-        
-        try {
-            // Deprecation 경고를 피하는 방법 (RowMapper를 활용)
-            return jdbcTemplate.queryForObject(sql, new Object[]{username}, (rs, rowNum) -> {
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(rs.getString("role"));
-                return user;
-            });
-        } catch (Exception e) {
-            return null; // 예외 처리: 결과가 없을 경우 null 반환
-        }
+    public boolean validateUser(String username, String password) {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{username, password}, Integer.class);
+        return count != null && count > 0;
     }
 }
-
 
 

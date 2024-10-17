@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
-
 @Controller
 public class LoginController {
 
@@ -40,3 +39,7 @@ public class LoginController {
         return "home";  // home.jsp∑Œ ¿Ãµø
     }
 }
+
+
+
+
