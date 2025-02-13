@@ -1,5 +1,3 @@
-# MyApp Web Application
-
 ## 프로젝트 개요
 이 프로젝트는 **Spring Framework (Spring MVC)** 기반의 전통적인 웹 애플리케이션입니다.  
 사용자 로그인 및 인증 기능을 중심으로 구성되어 있으며, XML 기반의 설정 파일(servlet-context.xml, root-context.xml, web.xml)을 통해 구성되었습니다.  
